@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-CN" id="index">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<meta name="keywords" content="">
+<meta name="description" content="">
+<title>PhotoClip</title>
+<style>
+html,body{
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	width: 100%;
+	height: 100%;
+}
+.img-cut-box{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+#clipArea {
+	height: 260px;
+	width: 260px;
+	margin:24% auto;
+}
+.photo-clip-layer{
+	background-color: #fff;
+}
+.btn-box{
+	overflow: hidden;
+	padding: 0 20px;
+	box-sizing: border-box;
+
+}
+.file-btn{
+	background-color: #00f;
+	text-align: center;
+	width:30%;
+	float: left;
+	border-radius: 3px;
+	
+}
+.file-btn label{
+	display: block;
+	width: 100%;
+	line-height: 2em;
+	color: #fff;
+}
+#clipBtn {
+	background-color:#0f0;
+	color: #fff;
+	width: 30%;
+	text-align: center;
+	line-height: 2em;
+	float: right;
+	outline: none;
+	border: 0;
+	font-size: 16px;
+	border-radius: 3px;
+}
+#view {
+	margin: 0 auto;
+	width: 200px;
+	height: 200px;
+	visibility: hidden;
+}
+</style>
+</head>
+<body ontouchstart="">
+<div class="img-cut-box">
+	<div id="clipArea"></div>
+	<div class="btn-box">
+		<div class="file-btn">
+			<label for="file">选择图片</label>
+			<input type="file" id="file" name="file" style="display: none;">
+		</div>
+		<button id="clipBtn">截取</button>
+	</div>
+	
+	
+	
+	
+</div>
+
+<script src="js/iscroll-zoom.js"></script>
+<script src="js/hammer.min.js"></script>
+<script src="js/lrz.all.bundle.js"></script>
+<script src="js/PhotoClip.js"></script>
+<script>
+
+	var pc = new PhotoClip('#clipArea', {
+		size: 260,
+		outputSize: 640,
+		//adaptive: ['60%', '80%'],
+		file: '#file',
+		view: '#view',
+		ok: '#clipBtn',
+		//img: 'img/mm.jpg',
+		loadStart: function() {
+			console.log('开始读取照片');
+		},
+		loadComplete: function() {
+			console.log('照片读取完成');
+		},
+		done: function(dataURL) {
+			console.log(dataURL);
+			
+		},
+		fail: function(msg) {
+			alert(msg);
+		}
+	});
+
+	// 加载的图片必须要与本程序同源，否则无法截图
+	//pc.load('img/mm.jpg');
+
+</script>
+
+</body>
+</html>
